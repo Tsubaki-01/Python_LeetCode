@@ -8,9 +8,19 @@
 # @lc code=start
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        
-# @lc code=end
+        s: list[int] = [0]
+        prefix: dict[int, int] = {0: 1}
+        cnt = 0
+        for i in range(len(nums)):
+            s.append(s[i] + nums[i])
+            if s[i + 1] - k in prefix:
+                cnt += prefix.get(s[i + 1] - k, 0)
+            prefix[s[i + 1]] = prefix.get(s[i + 1], 0) + 1
 
+        return cnt
+
+
+# @lc code=end
 
 
 #
@@ -23,4 +33,3 @@ class Solution:
 # @lcpr case=end
 
 #
-
